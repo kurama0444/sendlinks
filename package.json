@@ -1,0 +1,12 @@
+{
+  "name": "sendlinks-listener",
+  "version": "1.0.0",
+  "description": "Local listener to open links from Firebase",
+  "main": "listener.js",
+  "scripts": {
+    "start": "node listener.js"
+  },
+  "dependencies": {
+    "firebase": "^10.14.1"
+  }
+}
