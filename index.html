@@ -3,51 +3,128 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Send link to Kura</title>
+    <title>Send a Link to Kura</title>
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 45 45' fill='none'><rect width='45' height='45' rx='11' fill='%23ea9afc'/><path d='M26 10L14 24h9l-2 11 12-14h-9l2-11z' fill='%23232136'/></svg>">
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@500;700&display=swap"
+    />
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
       body {
-        background-color: #0f0f11;
-        color: #e2e8f0;
+        background: radial-gradient(
+          ellipse 110% 65% at 50% 50%,
+          #232136 90%,
+          #191724 100%
+        );
+        color: #e0def4;
+        font-family: "Inter", system-ui, sans-serif;
+      }
+      .card {
+        background: rgba(36, 33, 53, 0.94);
+        border-radius: 19px;
+        border: 1.5px solid #444059;
+        box-shadow:
+          0 4px 40px 0 rgba(64, 44, 98, 0.19),
+          0 1.5px 12px 0 rgba(90, 82, 139, 0.09);
+        transition: box-shadow 0.2s;
+      }
+      .card:focus-within,
+      .card:hover {
+        box-shadow:
+          0 8px 54px 0 #ea9afc49,
+          0 5px 14px 0 #c4a7e71e;
+      }
+      ::placeholder {
+        color: #958ebd !important;
+        opacity: 1;
       }
       .input-glow:focus {
-        box-shadow: 0 0 15px rgba(139, 92, 246, 0.5);
+        border-color: #a7c7e7;
+        box-shadow: 0 0 0 2.5px #c4a7e7cc;
+        outline: none;
+      }
+      .btn {
+        background: linear-gradient(90deg, #ea9afc 0%, #b4befe 85%);
+        color: #232136;
+        font-weight: 600;
+        letter-spacing: 0.01em;
+        border-radius: 0.55rem;
+        padding: 0.9em 0;
+        font-size: 1.18rem;
+        transition:
+          background 0.18s,
+          color 0.12s,
+          transform 0.09s;
+        box-shadow: 0 1.5px 10px 1px #c4a7e71d;
+      }
+      .btn:hover:enabled {
+        background: linear-gradient(90deg, #b4befe 10%, #ea9afc 100%);
+        color: #191724;
+        transform: scale(1.0225);
+      }
+      .btn:disabled {
+        background: #454653 !important;
+        color: #9a93b3;
+        cursor: not-allowed;
+      }
+      .status-dot {
+        font-size: 1.1rem;
+        vertical-align: middle;
+        margin-right: 0.2em;
       }
     </style>
   </head>
-  <body class="h-screen flex items-center justify-center">
-    <div
-      class="w-full max-w-md p-6 bg-gray-900 rounded-xl shadow-2xl border border-gray-800"
-    >
-      <h1
-        class="text-2xl font-bold mb-6 text-center bg-gradient-to-r from-purple-400 to-pink-600 text-transparent bg-clip-text"
-      >
-        Send link to automatically open
-      </h1>
-
-      <div class="space-y-4">
+  <body class="min-h-screen flex items-center justify-center">
+    <main class="w-full max-w-md px-7 py-10 card">
+      <div class="flex flex-col items-center justify-center mb-7">
+        <svg
+          width="44"
+          height="44"
+          viewBox="0 0 45 45"
+          fill="none"
+          class="mb-2"
+          aria-label="Paper plane logo"
+        >
+          <rect width="45" height="45" rx="11" fill="#b4befe" />
+          <path
+            d="M32.8 13.7L14.25 20.82a1.08 1.08 0 0 0-.05 2.02l6.13 2.76 2.77 6.13a1.08 1.08 0 0 0 2.02-.04l7.12-18.55a.77.77 0 0 0-1.13-.94z"
+            fill="#232136"
+          />
+        </svg>
+        <h1 class="text-2xl font-bold mb-0" style="color: #e0def4">
+          Send a Link to Kura
+        </h1>
+        <p class="mt-1 text-sm text-[#7f7d97] font-medium text-center px-1">
+          This will instantly pop open on my computer.<br />
+          (If I'm home and online.)
+        </p>
+      </div>
+      <form class="space-y-5" autocomplete="off" onsubmit="return false;">
         <input
           type="text"
           id="urlInput"
-          placeholder="Paste URL here..."
-          class="w-full p-4 bg-gray-800 border border-gray-700 rounded-lg focus:outline-none focus:border-purple-500 input-glow transition-all text-white placeholder-gray-500"
+          placeholder="Paste a link: https://example.com/"
+          class="w-full p-4 bg-[#28253b] border border-[#393552] rounded-lg input-glow transition-all text-[#e0def4] text-lg"
+          autocomplete="off"
+          spellcheck="false"
           autofocus
         />
-
         <button
           id="sendBtn"
-          class="w-full py-3 px-4 bg-purple-600 hover:bg-purple-700 rounded-lg font-medium transition-colors duration-200 transform active:scale-95"
+          type="button"
+          class="w-full btn focus:outline-none"
         >
-          Send
+          Send to Kura’s Computer
         </button>
+      </form>
+      <div class="flex flex-col items-center pt-3" style="min-height: 32px">
+        <span id="status" class="text-center text-base transition-all"></span>
       </div>
-
-      <p
-        id="status"
-        class="mt-4 text-center text-sm text-gray-500 min-h-[20px] transition-all"
-      ></p>
-    </div>
-
+      <div class="flex justify-center mt-3">
+        <span id="connectionStatus" class="text-xs text-[#a3aedc]"></span>
+      </div>
+    </main>
     <script type="module">
       import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
       import {
@@ -55,12 +132,13 @@
         ref,
         push,
         set,
+        onValue,
       } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js";
 
+      // Firebase config (obfuscated for your repo - do not edit unless you know what you're doing)
       const _0x1a2b =
         "231b421d2279410f6e4a7a786a172a615d370f06006e1b1b0d04484e39010949670f1e7065223f1c757c6c047e06714f26137a15010c3e464c32231d39504d4f71105713221434504d06381f4f033e11765f4a1f2e504505291128490d0e245f065a6e14394d420f2a4141231e3c7a0301053f465405765f774a46032f5e4d1827037552561f2a1f40132a112d555740394640146216314b460f2a41411f235e3b564e4f67105404231a3d5a57242f101e543f15365d4f042559575b27052a580141694150193e113f5c6118285941026e4a7a4a46032f5e4d1827037552561f2a1c421f3e153a58500838464b042d173d17421d3b10085421152b4a420a225c4325291e3c5c51242f101e547549680f1a587d0517427d487a15010c3b426d126e4a7a0819547202124f79466f0a175c730853132e4a3d0e100f285145407e453b09120b2e00144329403a0a0141695f41173f052a5c4e0825466d126e4a7a7e0e23016311347a2a0273664f36";
       const _0x3c4d = "X9#mK2$vLp";
-
       function _0x5e6f(text, key) {
         let result = "";
         for (let i = 0; i < text.length; i += 2) {
@@ -71,61 +149,114 @@
         }
         return result;
       }
-
       let firebaseConfig;
       try {
         firebaseConfig = JSON.parse(_0x5e6f(_0x1a2b, _0x3c4d));
       } catch (e) {
         console.error("Config Error");
       }
-
       const app = initializeApp(firebaseConfig);
       const db = getDatabase(app);
 
       const input = document.getElementById("urlInput");
       const btn = document.getElementById("sendBtn");
       const status = document.getElementById("status");
+      const connectionStatus = document.getElementById("connectionStatus");
+
+      const statusRef = ref(db, "status/last_seen");
+      let isOnline = false;
+
+      function updateConnectionUI(online) {
+        isOnline = online;
+        if (online) {
+          btn.disabled = false;
+          btn.textContent = "Send to Kura’s Computer";
+          connectionStatus.innerHTML =
+            '<span style="color:#a6e3a1;"><span class="status-dot">●</span>Kura is <b>online</b></span>';
+        } else {
+          btn.disabled = true;
+          btn.textContent = "Waiting for Kura...";
+          connectionStatus.innerHTML =
+            '<span style="color:#eb6f92;"><span class="status-dot">●</span>Kura is <b>offline</b></span>';
+        }
+      }
+      updateConnectionUI(false);
+
+      onValue(statusRef, (snapshot) => {
+        const lastSeen = snapshot.val();
+        if (!lastSeen) {
+          updateConnectionUI(false);
+          return;
+        }
+        const now = Date.now();
+        if (now - lastSeen < 15000) {
+          updateConnectionUI(true);
+        } else {
+          updateConnectionUI(false);
+        }
+      });
 
       async function sendLink() {
+        if (!isOnline) return;
         const url = input.value.trim();
         if (!url) return;
-
-        // Basic URL validation/fix
+        if (/\s/.test(url)) {
+          status.textContent = "Invalid URL: No spaces allowed!";
+          status.style.color = "#eb6f92";
+          return;
+        }
         let cleanUrl = url;
         if (!/^https?:\/\//i.test(cleanUrl)) {
           cleanUrl = "https://" + cleanUrl;
         }
-
         btn.disabled = true;
-        btn.innerHTML = "Sending...";
+        btn.textContent = "Sending...";
+        status.textContent = "";
+        status.style.color = "";
 
         try {
           const linksRef = ref(db, "links");
           const newLinkRef = push(linksRef);
+
           await set(newLinkRef, {
             url: cleanUrl,
             timestamp: Date.now(),
           });
 
-          status.textContent = "Sent!";
-          status.className =
-            "mt-4 text-center text-sm text-green-400 min-h-[20px]";
-          input.value = "";
+          const unsubscribe = onValue(newLinkRef, (snapshot) => {
+            const data = snapshot.val();
+            if (!data) return;
 
-          setTimeout(() => {
-            status.textContent = "";
-            status.className =
-              "mt-4 text-center text-sm text-gray-500 min-h-[20px]";
-          }, 2000);
+            if (data.status === "opened") {
+              status.textContent = "✅ Link opened on my computer!";
+              status.style.color = "#a6e3a1";
+              input.value = "";
+              btn.disabled = false;
+              btn.textContent = "Send to Kura’s Computer";
+              unsubscribe();
+              setTimeout(() => {
+                status.textContent = "";
+                status.style.color = "";
+              }, 1800);
+            } else if (data.status && data.status.startsWith("failed")) {
+              let errorMsg = "❌ Couldn't open the link.";
+              if (data.status === "failed_syntax")
+                errorMsg = "❌ Format looks wrong.";
+              if (data.status === "failed_network")
+                errorMsg = "❌ Site not found!";
+              status.textContent = errorMsg;
+              status.style.color = "#eb6f92";
+              btn.disabled = false;
+              btn.textContent = "Send to Kura’s Computer";
+              unsubscribe();
+            }
+          });
         } catch (error) {
           console.error(error);
-          status.textContent = "Error sending link. Check console.";
-          status.className =
-            "mt-4 text-center text-sm text-red-400 min-h-[20px]";
-        } finally {
+          status.textContent = "❌ Error sending.";
+          status.style.color = "#ea9afc";
           btn.disabled = false;
-          btn.innerHTML = "Send to Kura";
-          input.focus();
+          btn.textContent = "Send to Kura’s Computer";
         }
       }
 
