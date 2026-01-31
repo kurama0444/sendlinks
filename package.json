@@ -1,12 +1,18 @@
 {
-  "name": "sendlinks-listener",
+  "name": "sendlinks",
   "version": "1.0.0",
-  "description": "Local listener to open links from Firebase",
-  "main": "listener.js",
+  "description": "Send links to Kura's computer",
+  "type": "module",
   "scripts": {
-    "start": "node listener.js"
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "listener": "node listener.js"
   },
   "dependencies": {
     "firebase": "^10.14.1"
+  },
+  "devDependencies": {
+    "vite": "^6.1.1"
   }
 }
