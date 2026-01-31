@@ -1,3 +1,4 @@
+import "./index.css";
 import { db } from "./lib/firebase.js";
 import {
   ref,
