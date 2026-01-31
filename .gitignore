@@ -4,5 +4,4 @@ dist/
 *.log
 package-lock.json
 listener.js
-README.md
 .DS_Store
