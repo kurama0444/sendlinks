@@ -47,8 +47,8 @@ onValue(ref(db, "status/last_seen"), (snap) => {
   isOnline = lastSeen && Date.now() - lastSeen < 15000;
   btn.disabled = !isOnline;
   btn.textContent = isOnline
-    ? "Send to Kura’s Computer"
-    : "Waiting for Kura...";
+    ? "Send to any available device"
+    : "Waiting for available device...";
   connectionStatus.innerHTML = isOnline
     ? '<span style="color:#a6e3a1;"><span class="status-dot">●</span>Kura is <b>online</b></span>'
     : '<span style="color:#eb6f92;"><span class="status-dot">●</span>Kura is <b>offline</b></span>';
@@ -87,7 +87,7 @@ async function sendLink() {
     const unsubscribe = onValue(newRef, (snap) => {
       const data = snap.val();
       if (data?.status === "opened") {
-        status.textContent = "✅ Link opened on my computer!";
+        status.textContent = "✅ Link opened on an available device!";
         status.style.color = "#a6e3a1";
         input.value = "";
         unsubscribe();
@@ -96,12 +96,12 @@ async function sendLink() {
           status.textContent = "";
         }, 2000);
         btn.disabled = false;
-        btn.textContent = "Send to Kura’s Computer";
+        btn.textContent = "Send to any available device";
       } else if (data?.status?.startsWith("failed")) {
         status.textContent = "❌ Error: Link unreachable.";
         status.style.color = "#eb6f92";
         btn.disabled = false;
-        btn.textContent = "Send to Kura’s Computer";
+        btn.textContent = "Send to any available device";
         unsubscribe();
       }
     });
